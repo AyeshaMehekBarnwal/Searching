@@ -1,0 +1,48 @@
+#include <iostream>
+using namespace std;
+
+int arr[10000000];
+
+int findMinimum(int arr[], int low, int high)
+{
+    if(low > high)
+        return arr[0];
+        
+    
+        
+    if(low == high)
+        return arr[low];
+        
+    int mid = low + (high - low) / 2;
+    
+    //if middle element is point of rotation
+    if(mid > low && arr[mid - 1] > arr[mid])
+        return arr[mid];
+        
+    //if mid+1 is the point of rotation
+    if(mid < high && arr[mid] > arr[mid + 1])
+        return arr[mid + 1];
+        
+    if(arr[mid] < arr[high])
+        return findMinimum(arr, low, mid - 1);
+
+    return findMinimum(arr, mid + 1, high);
+        
+    
+}
+
+int main() {
+	//code
+	int T;
+	cin >> T;
+	while(T--)
+	{
+	    int n;
+	    cin >> n;
+	    for(int i = 0; i < n; i++)
+	        cin >> arr[i];
+	        
+	    cout << findMinimum(arr, 0, n - 1) << endl;
+	}
+	return 0;
+}
